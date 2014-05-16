@@ -715,12 +715,12 @@
 
 ## Whitespace
 
-  - Use soft tabs set to 2 spaces
+  - Use soft tabs set to 4 spaces
 
     ```javascript
     // bad
     function() {
-    ∙∙∙∙var name;
+    ∙∙var name;
     }
 
     // bad
@@ -730,7 +730,7 @@
 
     // good
     function() {
-    ∙∙var name;
+    ∙∙∙∙var name;
     }
     ```
 
@@ -770,7 +770,7 @@
     var x = y + 5;
     ```
 
-  - Place an empty newline at the end of the file.
+  - Place an empty newline at the end of the file. (this one is debatable)
 
     ```javascript
     // bad
