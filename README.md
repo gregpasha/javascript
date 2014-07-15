@@ -1053,14 +1053,14 @@
     this._firstName = 'Panda';
     ```
 
-  - When saving a reference to `this` use `self`.
+  - When saving a reference to `this` use `_this`.
 
     ```javascript
     // bad
     function() {
-      var _this = this;
+      var self = this;
       return function() {
-        console.log(_this);
+        console.log(self);
       };
     }
 
@@ -1074,9 +1074,9 @@
 
     // good
     function() {
-      var self = this;
+      var _this = this;
       return function() {
-        console.log(self);
+        console.log(_this);
       };
     }
     ```
