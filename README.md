@@ -769,7 +769,7 @@
     var x = y + 5;
     ```
 
-  - Place an empty newline at the end of the file. (this one is debatable)
+  - End files with a single newline character.
 
     ```javascript
     // bad
@@ -779,11 +779,18 @@
     ```
 
     ```javascript
+    // bad
+    (function(global) {
+      // ...stuff...
+    })(this);↵
+    ↵
+    ```
+
+    ```javascript
     // good
     (function(global) {
       // ...stuff...
-    })(this);
-
+    })(this);↵
     ```
 
   - Use indentation when making long method chains.
@@ -899,12 +906,14 @@
       return name;
     })();
 
-    // good
+    // good (guards against the function becoming an argument when two files with IIFEs are concatenated)
     ;(function() {
       var name = 'Skywalker';
       return name;
     })();
     ```
+
+    [Read more](http://stackoverflow.com/a/7365214/1712802).
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -955,7 +964,6 @@
     ```
 
   - If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
-  - **Note:** Be careful when using bitshift operations. Numbers are represented as [64-bit values](http://es5.github.io/#x4.3.19), but Bitshift operations always return a 32-bit integer ([source](http://es5.github.io/#x11.7)). Bitshift can lead to unexpected behavior for integer values larger than 32 bits. [Discussion](https://github.com/airbnb/javascript/issues/109)
 
     ```javascript
     // good
@@ -965,6 +973,14 @@
      * Number made it a lot faster.
      */
     var val = inputValue >> 0;
+    ```
+
+  - **Note:** Be careful when using bitshift operations. Numbers are represented as [64-bit values](http://es5.github.io/#x4.3.19), but Bitshift operations always return a 32-bit integer ([source](http://es5.github.io/#x11.7)). Bitshift can lead to unexpected behavior for integer values larger than 32 bits. [Discussion](https://github.com/airbnb/javascript/issues/109). Largest signed 32-bit Int is 2,147,483,647:
+
+    ```javascript
+    2147483647 >> 0 //=> 2147483647
+    2147483648 >> 0 //=> -2147483648
+    2147483649 >> 0 //=> -2147483647
     ```
 
   - Booleans:
@@ -1007,14 +1023,14 @@
     // bad
     var OBJEcttsssss = {};
     var this_is_my_object = {};
-    function c() {};
+    function c() {}
     var u = new user({
       name: 'Bob Parr'
     });
 
     // good
     var thisIsMyObject = {};
-    function thisIsMyFunction() {};
+    function thisIsMyFunction() {}
     var user = new User({
       name: 'Bob Parr'
     });
@@ -1094,6 +1110,8 @@
       console.log(msg);
     };
     ```
+
+  - **Note:** IE8 and below exhibit some quirks with named function expressions.  See [http://kangax.github.io/nfe/](http://kangax.github.io/nfe/) for more info.
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -1197,7 +1215,7 @@
 
     var luke = new Jedi();
     luke.jump(); // => true
-    luke.setHeight(20) // => undefined
+    luke.setHeight(20); // => undefined
 
     // good
     Jedi.prototype.jump = function() {
@@ -1266,6 +1284,7 @@
     ```
 
   **[⬆ back to top](#table-of-contents)**
+
 
 ## jQuery
 
@@ -1370,6 +1389,12 @@
 
   - [Annotated ECMAScript 5.1](http://es5.github.com/)
 
+**Tools**
+
+  - Code Style Linters
+    + [JSHint](http://www.jshint.com/) - [Airbnb Style .jshintrc](https://github.com/airbnb/javascript/blob/master/linters/jshintrc)
+    + [JSCS](https://github.com/jscs-dev/node-jscs) - [Airbnb Style Preset](https://github.com/jscs-dev/node-jscs/blob/master/presets/airbnb.json)
+
 **Other Styleguides**
 
   - [Google JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
@@ -1379,8 +1404,9 @@
 **Other Styles**
 
   - [Naming this in nested functions](https://gist.github.com/4135065) - Christian Johansen
-  - [Conditional Callbacks](https://github.com/airbnb/javascript/issues/52)
-  - [Popular JavaScript Coding Conventions on Github](http://sideeffect.kr/popularconvention/#javascript)
+  - [Conditional Callbacks](https://github.com/airbnb/javascript/issues/52) - Ross Allen
+  - [Popular JavaScript Coding Conventions on Github](http://sideeffect.kr/popularconvention/#javascript) - JeongHoon Byun
+  - [Multiple var statements in JavaScript, not superfluous](http://benalman.com/news/2012/05/multiple-var-statements-javascript/) - Ben Alman
 
 **Further Reading**
 
@@ -1402,7 +1428,7 @@
   - [Secrets of the JavaScript Ninja](http://www.amazon.com/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X) - John Resig and Bear Bibeault
   - [Human JavaScript](http://humanjavascript.com/) - Henrik Joreteg
   - [Superhero.js](http://superherojs.com/) - Kim Joar Bekkelund, Mads Mobæk, & Olav Bjorkoy
-  - [JSBooks](http://jsbooks.revolunet.com/)
+  - [JSBooks](http://jsbooks.revolunet.com/) - Julien Bouquillon
   - [Third Party JavaScript](http://manning.com/vinegar/) - Ben Vinegar and Anton Kovalyov
 
 **Blogs**
@@ -1418,7 +1444,6 @@
   - [Dmitry Baranovskiy](http://dmitry.baranovskiy.com/)
   - [Dustin Diaz](http://dustindiaz.com/)
   - [nettuts](http://net.tutsplus.com/?s=javascript)
-
 
 **[⬆ back to top](#table-of-contents)**
 
